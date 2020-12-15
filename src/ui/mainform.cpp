@@ -1,8 +1,8 @@
 #include "mainform.h"
 #include "ui_mainform.h"
-#include "appcontrol.h"
+#include "control/appcontrol.h"
 #include <QInputDialog>
-#include "playlistmodel.h"
+#include "model/playlistmodel.h"
 
 MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     QWidget(parent),
@@ -25,8 +25,9 @@ void MainForm::on_addPlaylist_clicked()
     bool ok = false;
     QString name = QInputDialog::getText(this, "Nova playlist", "Nova playlist:", QLineEdit::Normal
                           ,"", &ok, (Qt::Popup));
-
-    m_playlistModel->addPlaylist(name);
+    if (ok && !name.isEmpty()) {
+        m_playlistModel->addPlaylist(name);
+    }
 }
 
 void MainForm::on_btnSearch_clicked()

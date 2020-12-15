@@ -15,44 +15,46 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += $$PWD/src/
+
 SOURCES += \
-    appcontrol.cpp \
-    dbconnection.cpp \
-    httpdownload.cpp \
-    httprequestmanager.cpp \
-    jsonparser.cpp \
-    loginform.cpp \
+    src/control/appcontrol.cpp \
+    src/database/dbconnection.cpp \
+    src/networking/httpdownload.cpp \
+    src/networking/httprequestmanager.cpp \
+    src/util/jsonparser.cpp \
+    src/ui/loginform.cpp \
     main.cpp \
-    mainform.cpp \
-    mainwindow.cpp \
-    oauth2authorizationservice.cpp \
-    playlistmodel.cpp \
-    playliststrackmodel.cpp \
-    spotifycontrol.cpp \
-    spotifyprofile.cpp \
-    spotifywebapiclient.cpp
+    src/ui/mainform.cpp \
+    src/ui/mainwindow.cpp \
+    src/service/oauth2authorizationservice.cpp \
+    src/model/playlistmodel.cpp \
+    src/model/playliststrackmodel.cpp \
+    src/control/spotifycontrol.cpp \
+    src/api/spotifyprofile.cpp \
+    src/api/spotifywebapiclient.cpp
 
 HEADERS += \
-    appcontrol.h \
-    dbconnection.h \
-    httpdownload.h \
-    httprequestmanager.h \
-    jsonparser.h \
-    loginform.h \
-    mainform.h \
-    mainwindow.h \
-    oauth2authorizationservice.h \
-    playlistmodel.h \
-    playliststrackmodel.h \
-    spotifycontrol.h \
-    spotifyprofile.h \
-    spotifyurls.h \
-    spotifywebapiclient.h
+    src/control/appcontrol.h \
+    src/database/dbconnection.h \
+    src/networking/httpdownload.h \
+    src/networking/httprequestmanager.h \
+    src/util/jsonparser.h \
+    src/ui/loginform.h \
+    src/ui/mainform.h \
+    src/ui/mainwindow.h \
+    src/service/oauth2authorizationservice.h \
+    src/model/playlistmodel.h \
+    src/model/playliststrackmodel.h \
+    src/control/spotifycontrol.h \
+    src/api/spotifyprofile.h \
+    src/api/spotifyurls.h \
+    src/api/spotifywebapiclient.h
 
 FORMS += \
-    loginform.ui \
-    mainform.ui \
-    mainwindow.ui
+    src/ui/loginform.ui \
+    src/ui/mainform.ui \
+    src/ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

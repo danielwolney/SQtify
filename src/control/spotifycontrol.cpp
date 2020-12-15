@@ -1,7 +1,8 @@
 #include "spotifycontrol.h"
-#include "spotifyurls.h"
-#include "jsonparser.h"
-#include "spotifywebapiclient.h"
+#include "api/spotifyurls.h"
+#include "util/jsonparser.h"
+#include "api/spotifywebapiclient.h"
+#include "api/spotifyprofile.h"
 
 SpotifyControl::SpotifyControl(QObject *parent) : QObject(parent),
     m_apiClient(new SpotifyWebApiClient())

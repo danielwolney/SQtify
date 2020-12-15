@@ -1,5 +1,5 @@
 #include "appcontrol.h"
-#include "oauth2authorizationservice.h"
+#include "service/oauth2authorizationservice.h"
 #include "spotifycontrol.h"
 
 AppControl::AppControl(QObject *parent) : QObject(parent),

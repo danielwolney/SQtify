@@ -1,6 +1,6 @@
 #include "spotifywebapiclient.h"
-#include "httprequestmanager.h"
-#include "jsonparser.h"
+#include "networking/httprequestmanager.h"
+#include "util/jsonparser.h"
 
 SpotifyWebApiClient::SpotifyWebApiClient(QObject *parent) : QObject(parent),
     m_httpManager(new HttpRequestManager())

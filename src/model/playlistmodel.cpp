@@ -1,5 +1,5 @@
 #include "playlistmodel.h"
-#include "dbconnection.h"
+#include "database/dbconnection.h"
 #include <QSqlRecord>
 
 PlaylistModel::PlaylistModel(QObject *parent)

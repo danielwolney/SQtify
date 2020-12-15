@@ -5,8 +5,8 @@
 #include <QUrl>
 #include <QDebug>
 #include <QDesktopServices>
-#include "dbconnection.h"
-#include "spotifyurls.h"
+#include "database/dbconnection.h"
+#include "api/spotifyurls.h"
 //#include <QWebEngineView>
 
 OAuth2AuthorizationService::OAuth2AuthorizationService(QObject *parent) : QObject(parent)

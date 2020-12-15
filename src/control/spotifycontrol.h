@@ -2,7 +2,7 @@
 #define SPOTIFYCONTROL_H
 
 #include <QObject>
-#include "spotifyprofile.h"
+#include "api/spotifyprofile.h"
 
 class SpotifyWebApiClient;
 
@@ -23,7 +23,6 @@ signals:
 private:
     SpotifyWebApiClient *m_apiClient;
     SpotifyProfile m_user;
-
 };
 
 #endif // SPOTIFYCONTROL_H

@@ -2,7 +2,7 @@
 #define SPOTIFYWEBAPICLIENT_H
 
 #include <QObject>
-#include "httprequestmanager.h"
+#include "networking/httprequestmanager.h"
 #include <QQueue>
 #include <QPair>
 
