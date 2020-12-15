@@ -1,0 +1,13 @@
+{
+  "tables": [
+    "CREATE TABLE IF NOT EXISTS session (var_name TEXT PRIMARY KEY, value)",
+    "CREATE TABLE IF NOT EXISTS user (id TEXT PRIMARY KEY, name TEXT, img_url TEXT)",
+    "CREATE TABLE IF NOT EXISTS playlist (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT)",
+    "CREATE TABLE IF NOT EXISTS track (
+      id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+      id_playlist INTEGER,
+      name TEXT,
+      url TEXT
+    )"
+    ]
+}
