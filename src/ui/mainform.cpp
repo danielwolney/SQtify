@@ -4,21 +4,24 @@
 #include "model/playlistmodel.h"
 #include "api/searchresult.h"
 #include <ui/searchresultwidget.h>
+#include "model/localtracksmodel.h"
 
 #include <QInputDialog>
-#include <QJsonArray>
 
 MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainForm),
     m_control(appControl),
-    m_playlistModel(new PlaylistModel())
+    m_playlistModel(new PlaylistModel()),
+    m_tracksModel(new LocalTracksModel())
 {
     ui->setupUi(this);
     ui->playlistList->setModel(m_playlistModel);
-    ui->playlistList->hideColumn(m_playlistModel->columnIDIndex());
+    ui->playlistList->setModelColumn(m_playlistModel->columnNameIndex());
 
-//    ui->playslistTracksList->setModel(m_trackSearchResultModel);
+    ui->playslistTracksList->setModel(m_tracksModel);
+    ui->playslistTracksList->setModelColumn(m_tracksModel->columnNameIndex());
+
 
     ui->progressSearch->setVisible(false);
 
@@ -48,10 +51,9 @@ void MainForm::on_btnSearch_clicked()
     ui->searchEdit->clear();
 }
 
-#include <QDebug>
 void MainForm::on_playlistList_clicked(const QModelIndex &index)
 {
-    qDebug() << __PRETTY_FUNCTION__ << __LINE__ << index << m_playlistModel->id(index.row());
+    m_tracksModel->setCurrentPlaylistID(m_playlistModel->id(index.row()));
 }
 
 void MainForm::removeSearchTab(int tabIndex)
@@ -65,6 +67,13 @@ void MainForm::createSearchTab(QString searchTerm)
 {
     if (!searchTerm.isEmpty()) {
         SearchResult * result = m_control->searchTracks(ui->searchEdit->text());
-        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(new SearchResultWidget(result), "Resultados: '" + searchTerm + "'"));
+        auto tab = new SearchResultWidget(result, m_playlistModel);
+        connect(tab, &SearchResultWidget::addToPlaylist, this, &MainForm::addTrack);
+        ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(tab, "Resultados: '" + searchTerm + "'"));
     }
+}
+
+void MainForm::addTrack(int playlistID, QJsonObject trackItem)
+{
+    m_tracksModel->addPlaylistTrack(playlistID, trackItem);
 }

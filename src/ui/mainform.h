@@ -2,6 +2,7 @@
 #define MAINFORM_H
 
 #include <QWidget>
+#include <QJsonObject>
 
 namespace Ui {
 class MainForm;
@@ -9,6 +10,7 @@ class MainForm;
 
 class AppControl;
 class PlaylistModel;
+class LocalTracksModel;
 
 class MainForm : public QWidget
 {
@@ -24,11 +26,13 @@ private slots:
     void on_playlistList_clicked(const QModelIndex &index);
     void removeSearchTab(int tabIndex);
     void createSearchTab(QString searchTerm);
+    void addTrack(int playlistID, QJsonObject trackItem);
 
 private:
     Ui::MainForm *ui;
     AppControl *m_control;
     PlaylistModel *m_playlistModel;
+    LocalTracksModel *m_tracksModel;
 };
 
 #endif // MAINFORM_H

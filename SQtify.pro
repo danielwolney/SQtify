@@ -21,6 +21,7 @@ SOURCES += \
     src/api/searchresult.cpp \
     src/control/appcontrol.cpp \
     src/database/dbconnection.cpp \
+    src/model/localtracksmodel.cpp \
     src/model/tracksearchresultmodel.cpp \
     src/networking/httpdownload.cpp \
     src/networking/httprequestmanager.cpp \
@@ -32,7 +33,6 @@ SOURCES += \
     src/ui/mainwindow.cpp \
     src/service/oauth2authorizationservice.cpp \
     src/model/playlistmodel.cpp \
-    src/model/playliststrackmodel.cpp \
     src/control/spotifycontrol.cpp \
     src/api/spotifyprofile.cpp \
     src/api/spotifywebapiclient.cpp
@@ -41,6 +41,7 @@ HEADERS += \
     src/api/searchresult.h \
     src/control/appcontrol.h \
     src/database/dbconnection.h \
+    src/model/localtracksmodel.h \
     src/model/tracksearchresultmodel.h \
     src/networking/httpdownload.h \
     src/networking/httprequestmanager.h \
@@ -51,7 +52,6 @@ HEADERS += \
     src/ui/mainwindow.h \
     src/service/oauth2authorizationservice.h \
     src/model/playlistmodel.h \
-    src/model/playliststrackmodel.h \
     src/control/spotifycontrol.h \
     src/api/spotifyprofile.h \
     src/api/spotifyurls.h \

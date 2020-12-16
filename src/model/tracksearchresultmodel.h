@@ -11,6 +11,9 @@ class TrackSearchResultModel : public QAbstractListModel
     Q_OBJECT
 public:
     explicit TrackSearchResultModel(SearchResult *result, QObject *parent = nullptr);
+    enum Roles {
+        Item = Qt::UserRole + 1
+    };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -31,7 +34,7 @@ private:
     void appendItems(QJsonArray items);
 
     SearchResult *m_searchResult;
-    QList<QJsonArray> *m_itens;
+    QList<QJsonArray> m_itens;
     int m_count;
     int m_total;
     int m_pageSize;

@@ -14,6 +14,7 @@ public:
     int columnNameIndex() const;
 
     int id(int row) const;
+    QString name(int row) const;
 
 };
 

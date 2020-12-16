@@ -6,8 +6,12 @@
     "CREATE TABLE IF NOT EXISTS track (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       id_playlist INTEGER,
+      external_id TEXT,
       name TEXT,
-      url TEXT
+      url_sample TEXT,
+      album_name TEXT,
+      artists TEXT,
+      CONSTRAINT INTEGER UNIQUE (id_playlist, external_id)
     )"
     ]
 }

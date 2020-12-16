@@ -6,7 +6,6 @@
 TrackSearchResultModel::TrackSearchResultModel(SearchResult *result, QObject *parent)
     : QAbstractListModel(parent),
       m_searchResult(Q_NULLPTR),
-      m_itens(new QList<QJsonArray>),
       m_count(0)
 {
     setSearchResult(result);
@@ -23,10 +22,12 @@ QVariant TrackSearchResultModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
     if (index.row() <= m_count) {
+        int page = (int)(index.row() / (double)pageSize());
+        int itemIndex = (int)(index.row() % pageSize());
         if (role == Qt::DisplayRole) {
-            int page = (int)(index.row() / (double)pageSize());
-            int itemIndex = (int)(index.row() % pageSize());
-            return QString::number(index.row()+1) + " - " +m_itens->value(page).at(itemIndex).toObject().value("name").toString();
+            return QString::number(index.row()+1) + " - " +m_itens.value(page).at(itemIndex).toObject().value("name").toString();
+        } else if (role == Item) {
+            return m_itens.value(page).at(itemIndex).toObject();
         }
     }
     return QVariant();
@@ -53,7 +54,7 @@ void TrackSearchResultModel::fetchMore(const QModelIndex &parent)
 void TrackSearchResultModel::appendItems(QJsonArray items)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount() + items.size() - 1);
-    m_itens->append(items);
+    m_itens.append(items);
     m_count += items.size();
     endInsertRows();
 }
@@ -71,7 +72,7 @@ void TrackSearchResultModel::setPageSize(int pageSize)
 void TrackSearchResultModel::clear()
 {
     beginResetModel();
-    m_itens->clear();
+    m_itens.clear();
     m_count = 0;
     endResetModel();
 }
@@ -90,6 +91,7 @@ void TrackSearchResultModel::setSearchResult(SearchResult *searchResult)
     }
     if (searchResult) {
         m_searchResult = searchResult;
+        m_searchResult->setParent(this);
         setPageSize(m_searchResult->limit());
 
         connect(m_searchResult, &SearchResult::loading, this, &TrackSearchResultModel::loading);

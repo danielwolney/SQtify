@@ -4,7 +4,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include "util/jsonparser.h"
-
 #define CONNECTION_NAME "sqtify"
 
 QSqlDatabase DBConnection::database()

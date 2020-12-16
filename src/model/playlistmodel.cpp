@@ -7,15 +7,16 @@ PlaylistModel::PlaylistModel(QObject *parent)
 {
     setTable("playlist");
     select();
-    setHeaderData(0, Qt::Horizontal, tr("id"));
-    setHeaderData(1, Qt::Horizontal, tr("Nome"));
 }
 
 bool PlaylistModel::addPlaylist(QString name)
 {
     if (insertRow(rowCount())) {
         setData(index(rowCount()-1, columnNameIndex()), name);
-        return submit();
+        bool ok = submitAll();
+        if (ok) {
+            select();
+        }
     }
     return false;
 }
@@ -34,3 +35,9 @@ int PlaylistModel::id(int row) const
 {
     return record(row).value(columnIDIndex()).toInt();
 }
+
+QString PlaylistModel::name(int row) const
+{
+    return record(row).value(columnNameIndex()).toString();
+}
+
