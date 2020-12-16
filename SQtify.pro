@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += $$PWD/src/
 
 SOURCES += \
+    src/api/searchresult.cpp \
     src/control/appcontrol.cpp \
     src/database/dbconnection.cpp \
     src/networking/httpdownload.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
     src/api/spotifywebapiclient.cpp
 
 HEADERS += \
+    src/api/searchresult.h \
     src/control/appcontrol.h \
     src/database/dbconnection.h \
     src/networking/httpdownload.h \

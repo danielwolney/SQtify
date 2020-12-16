@@ -29,6 +29,5 @@ private:
     AppControl *m_control;
     LoginForm *m_loginForm;
     MainForm *m_mainForm;
-
 };
 #endif // MAINWINDOW_H

@@ -60,7 +60,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLineEdit" name="searchText">
+        <widget class="QLineEdit" name="searchEdit">
          <property name="placeholderText">
           <string>Buscar uma musica</string>
          </property>
@@ -91,36 +91,39 @@
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Playlist | Resultado da Busca</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QStackedWidget" name="stackedWidget">
-       <property name="currentIndex">
-        <number>1</number>
-       </property>
-       <widget class="QWidget" name="playlistPage">
-        <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QListView" name="playslistTracksList"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="searchPage">
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QListView" name="searchResultList"/>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QVBoxLayout" name="verticalLayout_3"/>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="tabPosition">
+      <enum>QTabWidget::North</enum>
+     </property>
+     <property name="tabShape">
+      <enum>QTabWidget::Rounded</enum>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="documentMode">
+      <bool>false</bool>
+     </property>
+     <property name="tabsClosable">
+      <bool>true</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="tabPlaylist">
+      <attribute name="title">
+       <string>Playlist</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QListView" name="playslistTracksList"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </item>
    <item>
     <widget class="QFrame" name="playerFrame">

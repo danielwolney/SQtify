@@ -6,6 +6,7 @@
 class OAuth2AuthorizationService;
 
 class SpotifyControl;
+class SearchResult;
 
 class AppControl : public QObject
 {
@@ -19,6 +20,7 @@ public:
 public slots:
     void grantAccess();
     void refreshAccessToken();
+    SearchResult *searchTracks(QString term);
 
 signals:
     void accessGranted();

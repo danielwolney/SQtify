@@ -32,6 +32,11 @@ void AppControl::refreshAccessToken()
     m_authService->refreshAccessToken();
 }
 
+SearchResult *AppControl::searchTracks(QString term)
+{
+    return m_spotifyControl->searchTracks(term);
+}
+
 void AppControl::setAccessToken(QString accessToken)
 {
     m_spotifyControl->setAccessToken(accessToken);

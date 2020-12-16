@@ -3,6 +3,8 @@
 #include "util/jsonparser.h"
 #include "api/spotifywebapiclient.h"
 #include "api/spotifyprofile.h"
+#include "api/searchresult.h"
+#include <QUrlQuery>
 
 SpotifyControl::SpotifyControl(QObject *parent) : QObject(parent),
     m_apiClient(new SpotifyWebApiClient())
@@ -20,7 +22,7 @@ void SpotifyControl::setAccessToken(QString accessToken)
 
 void SpotifyControl::retrieveUsersProfile()
 {
-    m_apiClient->get(API_BASE"/me", [&, this](const HttpResponse response) {
+    m_apiClient->get(URL_BASE"/me", [&, this](const HttpResponse response) {
         switch(response.httpStatusCode) {
         case HttpRequestManager::OK:
             QJsonObject me = JSONParser::toObject(response.data);
@@ -34,3 +36,23 @@ void SpotifyControl::retrieveUsersProfile()
         }
     });
 }
+
+SearchResult *SpotifyControl::searchTracks(QString term)
+{
+    QUrlQuery query(URL_BASE"/search?");
+    query.addQueryItem("q", term);
+    query.addQueryItem("type", "track");
+    query.addQueryItem("offset", "0");
+    query.addQueryItem("limit", "50");
+    auto result = new SearchResult(term, "track", m_apiClient);
+    m_apiClient->get(query.toString(QUrl::EncodeSpaces), [&, result](const HttpResponse response) {
+        switch(response.httpStatusCode) {
+        case HttpRequestManager::OK:
+            QJsonObject res = JSONParser::toObject(response.data);
+            result->addResultPage(res);
+            break;
+        }
+    });
+    return result;
+}
+

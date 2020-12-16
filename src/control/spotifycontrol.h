@@ -5,6 +5,7 @@
 #include "api/spotifyprofile.h"
 
 class SpotifyWebApiClient;
+class SearchResult;
 
 class SpotifyControl : public QObject
 {
@@ -15,6 +16,7 @@ public:
 
 public slots:
     void retrieveUsersProfile();
+    SearchResult *searchTracks(QString term);
 
 signals:
     void needRefreshAccessToken();

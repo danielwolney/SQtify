@@ -3,6 +3,7 @@
 #include "control/appcontrol.h"
 #include <QInputDialog>
 #include "model/playlistmodel.h"
+#include "api/searchresult.h"
 
 MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     QWidget(parent),
@@ -13,6 +14,12 @@ MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     ui->setupUi(this);
     ui->playlistList->setModel(m_playlistModel);
     ui->playlistList->hideColumn(m_playlistModel->columnIDIndex());
+
+    ui->progressSearch->setVisible(false);
+    ui->tabWidget->setTabsClosable(true);
+
+    connect(this, &MainForm::loading, ui->progressSearch, &QProgressBar::show);
+    connect(this, &MainForm::loadingFinished, ui->progressSearch, &QProgressBar::hide);
 }
 
 MainForm::~MainForm()
@@ -32,9 +39,18 @@ void MainForm::on_addPlaylist_clicked()
 
 void MainForm::on_btnSearch_clicked()
 {
-    m_control->refreshAccessToken();
+    emit loading();
+    SearchResult * result = m_control->searchTracks(ui->searchEdit->text());
+    connect(result, &SearchResult::ready, [&, result, this](QJsonObject res) {
+        qDebug() << result->next().toString();
+        if (result->hasNext()) {
+            result->getNextPage();
+        } else {
+            result->deleteLater();
+            emit loadingFinished();
+        }
+    });
 }
-
 #include <QDebug>
 void MainForm::on_playlistList_clicked(const QModelIndex &index)
 {

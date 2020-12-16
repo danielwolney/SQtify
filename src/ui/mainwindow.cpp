@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "appcontrol.h"
+#include "control/appcontrol.h"
 #include "loginform.h"
 #include "mainform.h"
 
@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
         goMainPage();
     }
     connect(m_control, &AppControl::accessGranted, this, &MainWindow::goMainPage);
-
 }
 
 MainWindow::~MainWindow()

@@ -23,6 +23,10 @@ private slots:
     void on_btnSearch_clicked();
     void on_playlistList_clicked(const QModelIndex &index);
 
+signals:
+    void loading();
+    void loadingFinished();
+
 private:
     Ui::MainForm *ui;
     AppControl *m_control;
