@@ -3,12 +3,13 @@
 #include <QJsonObject>
 #include "api/searchresult.h"
 
-TrackSearchResultModel::TrackSearchResultModel(QObject *parent)
+TrackSearchResultModel::TrackSearchResultModel(SearchResult *result, QObject *parent)
     : QAbstractListModel(parent),
       m_searchResult(Q_NULLPTR),
       m_itens(new QList<QJsonArray>),
       m_count(0)
 {
+    setSearchResult(result);
 }
 
 int TrackSearchResultModel::rowCount(const QModelIndex &parent) const

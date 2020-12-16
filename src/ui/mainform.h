@@ -9,7 +9,6 @@ class MainForm;
 
 class AppControl;
 class PlaylistModel;
-class TrackSearchResultModel;
 
 class MainForm : public QWidget
 {
@@ -23,16 +22,13 @@ private slots:
     void on_addPlaylist_clicked();
     void on_btnSearch_clicked();
     void on_playlistList_clicked(const QModelIndex &index);
-
-signals:
-    void loading();
-    void loadingFinished();
+    void removeSearchTab(int tabIndex);
+    void createSearchTab(QString searchTerm);
 
 private:
     Ui::MainForm *ui;
     AppControl *m_control;
     PlaylistModel *m_playlistModel;
-    TrackSearchResultModel *m_trackSearchResultModel;
 };
 
 #endif // MAINFORM_H

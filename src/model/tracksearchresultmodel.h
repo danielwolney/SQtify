@@ -10,7 +10,7 @@ class TrackSearchResultModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TrackSearchResultModel(QObject *parent = nullptr);
+    explicit TrackSearchResultModel(SearchResult *result, QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -18,7 +18,6 @@ public:
     void fetchMore(const QModelIndex &parent) override;
 
     SearchResult *searchResult() const;
-    void setSearchResult(SearchResult *searchResult);
 
     int pageSize() const;
     void setPageSize(int pageSize);
@@ -27,6 +26,7 @@ signals:
     void loaded();
 
 private:
+    void setSearchResult(SearchResult *searchResult);
     void clear();
     void appendItems(QJsonArray items);
 

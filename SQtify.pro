@@ -24,6 +24,7 @@ SOURCES += \
     src/model/tracksearchresultmodel.cpp \
     src/networking/httpdownload.cpp \
     src/networking/httprequestmanager.cpp \
+    src/ui/searchresultwidget.cpp \
     src/util/jsonparser.cpp \
     src/ui/loginform.cpp \
     main.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     src/model/tracksearchresultmodel.h \
     src/networking/httpdownload.h \
     src/networking/httprequestmanager.h \
+    src/ui/searchresultwidget.h \
     src/util/jsonparser.h \
     src/ui/loginform.h \
     src/ui/mainform.h \
@@ -58,7 +60,8 @@ HEADERS += \
 FORMS += \
     src/ui/loginform.ui \
     src/ui/mainform.ui \
-    src/ui/mainwindow.ui
+    src/ui/mainwindow.ui \
+    src/ui/searchresultwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
