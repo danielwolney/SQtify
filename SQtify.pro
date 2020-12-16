@@ -21,6 +21,7 @@ SOURCES += \
     src/api/searchresult.cpp \
     src/control/appcontrol.cpp \
     src/database/dbconnection.cpp \
+    src/model/tracksearchresultmodel.cpp \
     src/networking/httpdownload.cpp \
     src/networking/httprequestmanager.cpp \
     src/util/jsonparser.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     src/api/searchresult.h \
     src/control/appcontrol.h \
     src/database/dbconnection.h \
+    src/model/tracksearchresultmodel.h \
     src/networking/httpdownload.h \
     src/networking/httprequestmanager.h \
     src/util/jsonparser.h \

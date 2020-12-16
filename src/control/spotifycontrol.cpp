@@ -39,12 +39,13 @@ void SpotifyControl::retrieveUsersProfile()
 
 SearchResult *SpotifyControl::searchTracks(QString term)
 {
+    int limit = 50;
     QUrlQuery query(URL_BASE"/search?");
     query.addQueryItem("q", term);
     query.addQueryItem("type", "track");
     query.addQueryItem("offset", "0");
-    query.addQueryItem("limit", "50");
-    auto result = new SearchResult(term, "track", m_apiClient);
+    query.addQueryItem("limit", QString::number(limit));
+    auto result = new SearchResult(term, "track", limit, m_apiClient);
     m_apiClient->get(query.toString(QUrl::EncodeSpaces), [&, result](const HttpResponse response) {
         switch(response.httpStatusCode) {
         case HttpRequestManager::OK:

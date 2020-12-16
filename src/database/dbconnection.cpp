@@ -3,7 +3,7 @@
 #include <QFile>
 #include <QSqlQuery>
 #include <QSqlError>
-#include "jsonparser.h"
+#include "util/jsonparser.h"
 
 #define CONNECTION_NAME "sqtify"
 

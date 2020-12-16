@@ -1,6 +1,6 @@
 #include "spotifyprofile.h"
-#include "dbconnection.h"
-#include "jsonparser.h"
+#include "database/dbconnection.h"
+#include "util/jsonparser.h"
 
 SpotifyProfile::SpotifyProfile() : m_id(""), m_displayName("")
 {

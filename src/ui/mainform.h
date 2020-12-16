@@ -9,6 +9,7 @@ class MainForm;
 
 class AppControl;
 class PlaylistModel;
+class TrackSearchResultModel;
 
 class MainForm : public QWidget
 {
@@ -31,6 +32,7 @@ private:
     Ui::MainForm *ui;
     AppControl *m_control;
     PlaylistModel *m_playlistModel;
+    TrackSearchResultModel *m_trackSearchResultModel;
 };
 
 #endif // MAINFORM_H

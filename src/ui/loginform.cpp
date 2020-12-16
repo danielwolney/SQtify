@@ -1,6 +1,6 @@
 #include "loginform.h"
 #include "ui_loginform.h"
-#include "appcontrol.h"
+#include "control/appcontrol.h"
 
 LoginForm::LoginForm(AppControl *appControl, QWidget *parent) :
     QWidget(parent),

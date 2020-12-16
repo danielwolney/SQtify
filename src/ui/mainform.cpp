@@ -1,22 +1,31 @@
 #include "mainform.h"
 #include "ui_mainform.h"
 #include "control/appcontrol.h"
-#include <QInputDialog>
 #include "model/playlistmodel.h"
+#include "model/tracksearchresultmodel.h"
 #include "api/searchresult.h"
+
+#include <QInputDialog>
+#include <QJsonArray>
 
 MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainForm),
     m_control(appControl),
-    m_playlistModel(new PlaylistModel())
+    m_playlistModel(new PlaylistModel()),
+    m_trackSearchResultModel(new TrackSearchResultModel())
 {
     ui->setupUi(this);
     ui->playlistList->setModel(m_playlistModel);
     ui->playlistList->hideColumn(m_playlistModel->columnIDIndex());
 
+    ui->playslistTracksList->setModel(m_trackSearchResultModel);
+
     ui->progressSearch->setVisible(false);
     ui->tabWidget->setTabsClosable(true);
+
+    connect(m_trackSearchResultModel, &TrackSearchResultModel::loading, this, &MainForm::loading);
+    connect(m_trackSearchResultModel, &TrackSearchResultModel::loaded, this, &MainForm::loadingFinished);
 
     connect(this, &MainForm::loading, ui->progressSearch, &QProgressBar::show);
     connect(this, &MainForm::loadingFinished, ui->progressSearch, &QProgressBar::hide);
@@ -39,18 +48,10 @@ void MainForm::on_addPlaylist_clicked()
 
 void MainForm::on_btnSearch_clicked()
 {
-    emit loading();
     SearchResult * result = m_control->searchTracks(ui->searchEdit->text());
-    connect(result, &SearchResult::ready, [&, result, this](QJsonObject res) {
-        qDebug() << result->next().toString();
-        if (result->hasNext()) {
-            result->getNextPage();
-        } else {
-            result->deleteLater();
-            emit loadingFinished();
-        }
-    });
+    m_trackSearchResultModel->setSearchResult(result);
 }
+
 #include <QDebug>
 void MainForm::on_playlistList_clicked(const QModelIndex &index)
 {
