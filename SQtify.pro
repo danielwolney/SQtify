@@ -1,4 +1,4 @@
-QT       += core gui network networkauth sql multimedia
+QT       += core gui network networkauth sql multimedia svg
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -21,10 +21,13 @@ SOURCES += \
     src/api/searchresult.cpp \
     src/control/appcontrol.cpp \
     src/database/dbconnection.cpp \
+    src/media/mediaplayer.cpp \
     src/model/localtracksmodel.cpp \
     src/model/tracksearchresultmodel.cpp \
     src/networking/httpdownload.cpp \
     src/networking/httprequestmanager.cpp \
+    src/ui/actionlistview.cpp \
+    src/ui/playerwidget.cpp \
     src/ui/searchresultwidget.cpp \
     src/util/jsonparser.cpp \
     src/ui/loginform.cpp \
@@ -41,10 +44,13 @@ HEADERS += \
     src/api/searchresult.h \
     src/control/appcontrol.h \
     src/database/dbconnection.h \
+    src/media/mediaplayer.h \
     src/model/localtracksmodel.h \
     src/model/tracksearchresultmodel.h \
     src/networking/httpdownload.h \
     src/networking/httprequestmanager.h \
+    src/ui/actionlistview.h \
+    src/ui/playerwidget.h \
     src/ui/searchresultwidget.h \
     src/util/jsonparser.h \
     src/ui/loginform.h \
@@ -61,6 +67,7 @@ FORMS += \
     src/ui/loginform.ui \
     src/ui/mainform.ui \
     src/ui/mainwindow.ui \
+    src/ui/playerwidget.ui \
     src/ui/searchresultwidget.ui
 
 # Default rules for deployment.

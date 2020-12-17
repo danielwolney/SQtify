@@ -11,6 +11,7 @@
       url_sample TEXT,
       album_name TEXT,
       artists TEXT,
+      url_img TEXT,
       CONSTRAINT INTEGER UNIQUE (id_playlist, external_id)
     )"
     ]

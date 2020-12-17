@@ -30,6 +30,10 @@ private slots:
 
     void on_playslistTracksList_doubleClicked(const QModelIndex &index);
     void removeTrack(const QModelIndex &index);
+    void playTrack(const QModelIndex &index);
+    void removePlaylist();
+    void removeCurrentTrack();
+    void playCurrentTrack();
 
 private:
     Ui::MainForm *ui;

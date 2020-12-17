@@ -1,5 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>db.json</file>
+        <file>baseline_library_add_black_18dp.png</file>
+        <file>app.svg</file>
+        <file>delete-black-24dp.svg</file>
+        <file>search-black-24dp.svg</file>
+        <file>play_circle-green-24dp.svg</file>
+        <file>pause_circle-green-24dp.svg</file>
+        <file>skip_next-black-24dp.svg</file>
+        <file>skip_previous-grey-24dp.svg</file>
+        <file>play_arrow-green-24dp.svg</file>
     </qresource>
 </RCC>

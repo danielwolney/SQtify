@@ -9,6 +9,9 @@
 #include <QInputDialog>
 #include <QMessageBox>
 
+#include <QAction>
+#include <QIcon>
+
 MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MainForm),
@@ -20,11 +23,23 @@ MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     ui->playlistList->setModel(m_playlistModel);
     ui->playlistList->setModelColumn(m_playlistModel->columnNameIndex());
 
+    auto action = new QAction(QIcon(":/delete-black-24dp.svg"), "Remover");
+    connect(action, &QAction::triggered, this, &MainForm::removePlaylist);
+    ui->playlistList->addAction(action);
+
     ui->playslistTracksList->setModel(m_tracksModel);
     ui->playslistTracksList->setModelColumn(m_tracksModel->columnNameIndex());
+    action = new QAction(QIcon(":/play_arrow-green-24dp.svg"), "Play");
+    connect(action, &QAction::triggered, this, &MainForm::playCurrentTrack);
+    ui->playslistTracksList->addAction(action);
+    action = new QAction(QIcon(":/delete-black-24dp.svg"), "Remover");
+    connect(action, &QAction::triggered, this, &MainForm::removeCurrentTrack);
+    ui->playslistTracksList->addAction(action);
 
     connect(ui->tabWidget, &QTabWidget::tabCloseRequested, this, &MainForm::removeSearchTab);
     ui->tabWidget->setTabsClosable(true);
+
+    ui->playerWidget->setPlayer(m_control->player());
 }
 
 MainForm::~MainForm()
@@ -87,7 +102,7 @@ void MainForm::addTrack(int playlistID, QJsonObject trackItem)
 
 void MainForm::on_playslistTracksList_doubleClicked(const QModelIndex &index)
 {
-    removeTrack(index);
+    playTrack(index);
 }
 
 void MainForm::removeTrack(const QModelIndex &index)
@@ -99,3 +114,32 @@ void MainForm::removeTrack(const QModelIndex &index)
         }
     }
 }
+
+void MainForm::playTrack(const QModelIndex &index)
+{
+    m_control->startPlaylist(index);
+}
+
+void MainForm::removePlaylist()
+{
+    QModelIndex index = ui->playlistList->focusIndex();
+    if (QMessageBox::question(this, "Remover playlist",
+                              QString("Remover playlist '%1'?").arg(m_playlistModel->name(index.row()))) == QMessageBox::Yes) {
+        if (m_playlistModel->removeRow(index.row())) {
+            m_playlistModel->select();
+        }
+    }
+}
+
+void MainForm::removeCurrentTrack()
+{
+    QModelIndex index = ui->playslistTracksList->focusIndex();
+    removeTrack(index);
+}
+
+void MainForm::playCurrentTrack()
+{
+    QModelIndex index = ui->playslistTracksList->focusIndex();
+    playTrack(index);
+}
+

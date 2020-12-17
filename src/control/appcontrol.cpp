@@ -1,10 +1,13 @@
 #include "appcontrol.h"
 #include "service/oauth2authorizationservice.h"
 #include "spotifycontrol.h"
+#include "model/localtracksmodel.h"
+#include "media/mediaplayer.h"
 
 AppControl::AppControl(QObject *parent) : QObject(parent),
     m_authService(new OAuth2AuthorizationService(this)),
-    m_spotifyControl(new SpotifyControl())
+    m_spotifyControl(new SpotifyControl()),
+    m_player(new MediaPlayer(this))
 {
     connect(m_authService, &OAuth2AuthorizationService::accessGranted,
             this, [&, this](QString accessToken){
@@ -37,7 +40,26 @@ SearchResult *AppControl::searchTracks(QString term)
     return m_spotifyControl->searchTracks(term);
 }
 
+void AppControl::startPlaylist(const QModelIndex &index)
+{
+    QJsonObject track;
+    QModelIndex currentIndex = index;
+    QList<QJsonObject> tracks;
+    QString url;
+    do {
+        track = currentIndex.data(LocalTracksModel::Track).toJsonObject();
+        tracks << track;
+        currentIndex = currentIndex.siblingAtRow(currentIndex.row()+1);
+    } while (currentIndex.isValid());
+    m_player->startPlaylist(tracks);
+}
+
 void AppControl::setAccessToken(QString accessToken)
 {
     m_spotifyControl->setAccessToken(accessToken);
+}
+
+MediaPlayer *AppControl::player() const
+{
+    return m_player;
 }

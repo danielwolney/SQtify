@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>806</width>
-    <height>626</height>
+    <width>527</width>
+    <height>553</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,14 +28,21 @@
        <item>
         <widget class="QToolButton" name="addPlaylist">
          <property name="text">
-          <string>+</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../res/res.qrc">
+           <normaloff>:/baseline_library_add_black_18dp.png</normaloff>:/baseline_library_add_black_18dp.png</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="QListView" name="playlistList">
+      <widget class="ActionListView" name="playlistList">
        <property name="selectionMode">
         <enum>QAbstractItemView::SingleSelection</enum>
        </property>
@@ -63,7 +70,14 @@
        <item>
         <widget class="QToolButton" name="btnSearch">
          <property name="text">
-          <string>PESQUISAR</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../res/res.qrc">
+           <normaloff>:/search-black-24dp.svg</normaloff>:/search-black-24dp.svg</iconset>
+         </property>
+         <property name="autoRaise">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -100,7 +114,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QListView" name="playslistTracksList">
+        <widget class="ActionListView" name="playslistTracksList">
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>
@@ -111,90 +125,25 @@
     </widget>
    </item>
    <item>
-    <widget class="QFrame" name="playerFrame">
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Sunken</enum>
-     </property>
-     <property name="midLineWidth">
-      <number>1</number>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QLabel" name="lblTrackName">
-        <property name="text">
-         <string>TrackName</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="lblTime">
-          <property name="text">
-           <string>5:00</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSlider" name="playProgressIndicator">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QToolButton" name="btnPrevious">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>|&lt;</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::DelayedPopup</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_2">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>play</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::DelayedPopup</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="btnSkip">
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>&gt;|</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::DelayedPopup</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
+    <widget class="PlayerWidget" name="playerWidget" native="true"/>
    </item>
   </layout>
  </widget>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>PlayerWidget</class>
+   <extends>QWidget</extends>
+   <header>ui/playerwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ActionListView</class>
+   <extends>QListView</extends>
+   <header>ui/actionlistview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../res/res.qrc"/>
+ </resources>
  <connections/>
 </ui>

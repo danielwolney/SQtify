@@ -10,6 +10,11 @@ class LocalTracksModel : public QSqlTableModel
 
 public:
     explicit LocalTracksModel(QObject *parent = nullptr);
+    enum Roles {
+        Track = Qt::UserRole + 1
+    };
+
+    QVariant data(const QModelIndex &idx, int role = Qt::DisplayRole) const override;
 
     int columnPlaylistIDIndex() const;
     int columnIDIndex() const;
@@ -18,6 +23,7 @@ public:
     int columnUrlIndex() const;
     int columnAlbumIndex() const;
     int columnArtitsIndex() const;
+    int columnImageIndex() const;
 
     QString name(int row);
 
