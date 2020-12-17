@@ -23,6 +23,7 @@ public:
 
 signals:
     void addToPlaylist(int playlistID, QJsonObject item);
+    void addToNewPlaylist(QJsonObject item);
 
 private slots:
     void createPlaylistMenu();

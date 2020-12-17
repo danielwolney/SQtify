@@ -19,6 +19,8 @@ public:
     int columnAlbumIndex() const;
     int columnArtitsIndex() const;
 
+    QString name(int row);
+
 public slots:
     void setCurrentPlaylistID(int playlistID);
     bool addPlaylistTrack(int playlistID, QJsonObject trackItem);

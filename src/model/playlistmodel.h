@@ -9,7 +9,7 @@ class PlaylistModel : public QSqlTableModel
 
 public:
     explicit PlaylistModel(QObject *parent = nullptr);
-    bool addPlaylist(QString name);
+    int addPlaylist(QString name);
     int columnIDIndex() const;
     int columnNameIndex() const;
 

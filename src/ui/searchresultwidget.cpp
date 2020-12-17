@@ -46,7 +46,6 @@ void SearchResultWidget::createPlaylistMenu()
     auto menu = m_addAction->menu();
     menu->clear();
     for(int i = 0; i < m_playlistModel->rowCount(); ++i) {
-        qDebug() << m_playlistModel->name(i);
         QAction *playlistItem = menu->addAction(m_playlistModel->name(i));
         playlistItem ->setData(m_playlistModel->id(i));
         connect(playlistItem , &QAction::triggered, this, [&, playlistItem , this](){
@@ -54,5 +53,10 @@ void SearchResultWidget::createPlaylistMenu()
                               ui->listResult->currentIndex().data(TrackSearchResultModel::Item).toJsonObject());
         });
     }
+    menu->addSeparator();
+    QAction *newPlaylist = menu->addAction("Nova playlist");
+    connect(newPlaylist , &QAction::triggered, this, [&, this](){
+       emit addToNewPlaylist(ui->listResult->currentIndex().data(TrackSearchResultModel::Item).toJsonObject());
+    });
 }
 

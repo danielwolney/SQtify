@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonValue>
+#include <QSqlError>
 
 LocalTracksModel::LocalTracksModel(QObject *parent)
     : QSqlTableModel(parent, DBConnection::database())
@@ -53,7 +54,11 @@ int LocalTracksModel::columnArtitsIndex() const
     return fieldIndex("artists");
 }
 
-#include <QSqlError>
+QString LocalTracksModel::name(int row)
+{
+    return record(row).value(columnNameIndex()).toString();
+}
+
 bool LocalTracksModel::addPlaylistTrack(int playlistID, QJsonObject trackItem)
 {
     if (insertRow(rowCount())) {

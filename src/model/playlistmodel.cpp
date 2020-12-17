@@ -9,16 +9,18 @@ PlaylistModel::PlaylistModel(QObject *parent)
     select();
 }
 
-bool PlaylistModel::addPlaylist(QString name)
+int PlaylistModel::addPlaylist(QString name)
 {
     if (insertRow(rowCount())) {
         setData(index(rowCount()-1, columnNameIndex()), name);
         bool ok = submitAll();
+        int id = query().lastInsertId().toInt();
         if (ok) {
             select();
+            return id;
         }
     }
-    return false;
+    return 0;
 }
 
 int PlaylistModel::columnIDIndex() const

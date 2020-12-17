@@ -28,11 +28,15 @@ private slots:
     void createSearchTab(QString searchTerm);
     void addTrack(int playlistID, QJsonObject trackItem);
 
+    void on_playslistTracksList_doubleClicked(const QModelIndex &index);
+    void removeTrack(const QModelIndex &index);
+
 private:
     Ui::MainForm *ui;
     AppControl *m_control;
     PlaylistModel *m_playlistModel;
     LocalTracksModel *m_tracksModel;
+    int createPlaylist();
 };
 
 #endif // MAINFORM_H
