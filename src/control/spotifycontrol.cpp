@@ -7,7 +7,7 @@
 #include <QUrlQuery>
 
 SpotifyControl::SpotifyControl(QObject *parent) : QObject(parent),
-    m_apiClient(new SpotifyWebApiClient())
+    m_apiClient(new SpotifyWebApiClientImpl())
 {
     connect(m_apiClient, &SpotifyWebApiClient::expiredToken, this, &SpotifyControl::needRefreshAccessToken);
     connect(m_apiClient, &SpotifyWebApiClient::accessTokenChanged,

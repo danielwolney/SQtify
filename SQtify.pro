@@ -34,7 +34,7 @@ SOURCES += \
     main.cpp \
     src/ui/mainform.cpp \
     src/ui/mainwindow.cpp \
-    src/service/oauth2authorizationservice.cpp \
+    src/auth/oauth2authorization.cpp \
     src/model/playlistmodel.cpp \
     src/control/spotifycontrol.cpp \
     src/api/spotifyprofile.cpp \
@@ -56,7 +56,7 @@ HEADERS += \
     src/ui/loginform.h \
     src/ui/mainform.h \
     src/ui/mainwindow.h \
-    src/service/oauth2authorizationservice.h \
+    src/auth/oauth2authorization.h \
     src/model/playlistmodel.h \
     src/control/spotifycontrol.h \
     src/api/spotifyprofile.h \

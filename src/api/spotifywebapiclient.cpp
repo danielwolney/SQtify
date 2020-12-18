@@ -9,7 +9,7 @@ SpotifyWebApiClient::SpotifyWebApiClient(QObject *parent) : QObject(parent),
             this, &SpotifyWebApiClient::dequeuePendingRequests);
 }
 
-void SpotifyWebApiClient::setAccesToken(QString accessToken)
+void SpotifyWebApiClientImpl::setAccesToken(QString accessToken)
 {
     if (accessToken != m_accessToken) {
         m_accessToken = accessToken;
@@ -17,12 +17,12 @@ void SpotifyWebApiClient::setAccesToken(QString accessToken)
     }
 }
 
-void SpotifyWebApiClient::get(QString apiResource, HttpRequestManager::OnFinished onResponse)
+void SpotifyWebApiClientImpl::get(QString apiResource, HttpRequestManager::OnFinished onResponse)
 {
     get(apiResource, HttpRequest::RawHeaders(), onResponse);
 }
 
-void SpotifyWebApiClient::get(QString apiResource, HttpRequest::RawHeaders headers,
+void SpotifyWebApiClientImpl::get(QString apiResource, HttpRequest::RawHeaders headers,
                               HttpRequestManager::OnFinished onResponse)
 {
     HttpRequest request = {HttpRequest::GET, apiResource, headers, QByteArray()};

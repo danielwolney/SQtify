@@ -22,8 +22,6 @@ public:
     Q_PROPERTY(QJsonObject currentTrack READ currentTrack WRITE setCurrentTrack NOTIFY currentTrackChanged)
     QJsonObject currentTrack() const;
 
-    void setBindedPositionObj(QObject *bindedPositionObj);
-
 public slots:
     void startPlaylist(QList<QJsonObject> tracks);
     void resume();

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QModelIndex>
 
-class OAuth2AuthorizationService;
+class OAuth2Authorization;
 
 class SpotifyControl;
 class SearchResult;
@@ -32,7 +32,7 @@ signals:
 private:
     void setAccessToken(QString accessToken);
 
-    OAuth2AuthorizationService *m_authService;
+    OAuth2Authorization *m_authService;
     SpotifyControl *m_spotifyControl;
     MediaPlayer* m_player;
 

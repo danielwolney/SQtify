@@ -1,15 +1,15 @@
-#ifndef OAUTH2AUTHORIZATIONSERVICE_H
-#define OAUTH2AUTHORIZATIONSERVICE_H
+#ifndef OAUTH2AUTHORIZATION_H
+#define OAUTH2AUTHORIZATION_H
 
 #include <QObject>
 
 class QOAuth2AuthorizationCodeFlow;
 
-class OAuth2AuthorizationService : public QObject
+class OAuth2Authorization : public QObject
 {
     Q_OBJECT
 public:
-    explicit OAuth2AuthorizationService(QObject *parent = nullptr);
+    explicit OAuth2Authorization(QObject *parent = nullptr);
     bool hasAccess();
     QString accessToken();
 
@@ -32,4 +32,4 @@ private:
     QOAuth2AuthorizationCodeFlow *m_oAuthFlow;
 };
 
-#endif // OAUTH2AUTHORIZATIONSERVICE_H
+#endif // OAUTH2AUTHORIZATION_H

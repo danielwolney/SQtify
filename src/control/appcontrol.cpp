@@ -1,15 +1,15 @@
 #include "appcontrol.h"
-#include "service/oauth2authorizationservice.h"
+#include "auth/oauth2authorization.h"
 #include "spotifycontrol.h"
 #include "model/localtracksmodel.h"
 #include "media/mediaplayer.h"
 
 AppControl::AppControl(QObject *parent) : QObject(parent),
-    m_authService(new OAuth2AuthorizationService(this)),
+    m_authService(new OAuth2Authorization(this)),
     m_spotifyControl(new SpotifyControl()),
     m_player(new MediaPlayer(this))
 {
-    connect(m_authService, &OAuth2AuthorizationService::accessGranted,
+    connect(m_authService, &OAuth2Authorization::accessGranted,
             this, [&, this](QString accessToken){
         setAccessToken(accessToken);
         emit accessGranted();
