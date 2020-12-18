@@ -7,7 +7,7 @@
 
 AppControl::AppControl(QObject *parent) : QObject(parent),
     m_authService(new OAuth2Authorization(this)),
-    m_requestManager(new HttpRequestManager()),
+    m_requestManager(new HttpRequestManagerImpl()),
     m_spotifyControl(new SpotifyControl(m_requestManager, this)),
     m_player(new MediaPlayer(this))
 {

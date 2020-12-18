@@ -10,11 +10,14 @@ class SpotifyWebApiClient : public QObject
 {
     Q_OBJECT
 public:
+    explicit SpotifyWebApiClient(QObject *parent = nullptr);
     explicit SpotifyWebApiClient(HttpRequestManager *httpManager, QObject *parent = nullptr);
+
     virtual void setAccesToken(QString accessToken) = 0;
     virtual void get(QString apiResource, HttpRequestManager::OnFinished onResponse) = 0;
+
     virtual void get(QString apiResource, HttpRequest::RawHeaders headers,
-             HttpRequestManager::OnFinished onResponse) = 0;
+             HttpRequestManager::OnFinished onResponse);
 
 signals:
     void accessTokenChanged();
@@ -39,8 +42,6 @@ public:
 
     virtual void setAccesToken(QString accessToken) override;
     virtual void get(QString apiResource, HttpRequestManager::OnFinished onResponse) override;
-    virtual void get(QString apiResource, HttpRequest::RawHeaders headers,
-             HttpRequestManager::OnFinished onResponse) override;
 };
 
 #endif // SPOTIFYWEBAPICLIENT_H

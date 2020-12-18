@@ -96,6 +96,7 @@ void TrackSearchResultModel::setSearchResult(SearchResult *searchResult)
 
         connect(m_searchResult, &SearchResult::loading, this, &TrackSearchResultModel::loading);
         connect(m_searchResult, &SearchResult::loaded, this, &TrackSearchResultModel::loaded);
+        connect(m_searchResult, &SearchResult::cleared, this, &TrackSearchResultModel::clear);
 
         connect(m_searchResult, &SearchResult::ready, [&, this](QJsonArray items) {
             appendItems(items);

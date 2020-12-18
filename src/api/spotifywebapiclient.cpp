@@ -2,6 +2,10 @@
 #include "networking/httprequestmanager.h"
 #include "util/jsonparser.h"
 
+SpotifyWebApiClient::SpotifyWebApiClient(QObject *parent) : SpotifyWebApiClient(Q_NULLPTR,parent)
+{
+}
+
 SpotifyWebApiClient::SpotifyWebApiClient(HttpRequestManager *httpManager, QObject *parent) : QObject(parent),
     m_httpManager(httpManager)
 {
@@ -9,7 +13,8 @@ SpotifyWebApiClient::SpotifyWebApiClient(HttpRequestManager *httpManager, QObjec
             this, &SpotifyWebApiClient::dequeuePendingRequests);
 }
 
-SpotifyWebApiClientImpl::SpotifyWebApiClientImpl(HttpRequestManager *httpManager, QObject *parent): SpotifyWebApiClient(httpManager, parent)
+SpotifyWebApiClientImpl::SpotifyWebApiClientImpl(HttpRequestManager *httpManager, QObject *parent):
+    SpotifyWebApiClient(httpManager, parent)
 {
 }
 
@@ -23,10 +28,10 @@ void SpotifyWebApiClientImpl::setAccesToken(QString accessToken)
 
 void SpotifyWebApiClientImpl::get(QString apiResource, HttpRequestManager::OnFinished onResponse)
 {
-    get(apiResource, HttpRequest::RawHeaders(), onResponse);
+    SpotifyWebApiClient::get(apiResource, HttpRequest::RawHeaders(), onResponse);
 }
 
-void SpotifyWebApiClientImpl::get(QString apiResource, HttpRequest::RawHeaders headers,
+void SpotifyWebApiClient::get(QString apiResource, HttpRequest::RawHeaders headers,
                               HttpRequestManager::OnFinished onResponse)
 {
     HttpRequest request = {HttpRequest::GET, apiResource, headers, QByteArray()};
@@ -47,7 +52,7 @@ void SpotifyWebApiClient::requestThenCheckAuth(HttpRequest httpRequest, HttpRequ
     request(newRequest, [&, this, newRequest, onResponse]
                           (const HttpResponse response) {
         if (response.httpStatusCode == HttpRequestManager::FORBIDDEN || response.httpStatusCode == HttpRequestManager::UNAUTHORIZED) {
-            qDebug() << response.httpStatusCode << response.data;
+            qDebug() << response.httpStatusCode << QString(response.data);
             addPendingRequest(newRequest, onResponse);
             emit expiredToken();
         } else {
@@ -59,7 +64,9 @@ void SpotifyWebApiClient::requestThenCheckAuth(HttpRequest httpRequest, HttpRequ
 void SpotifyWebApiClient::request(HttpRequest request,
                           HttpRequestManager::OnFinished onResponse)
 {
-    m_httpManager->request(request, onResponse);
+    if (m_httpManager) {
+        m_httpManager->request(request, onResponse);
+    }
 }
 
 void SpotifyWebApiClient::addPendingRequest(HttpRequest httpRequest, HttpRequestManager::OnFinished onResponse)

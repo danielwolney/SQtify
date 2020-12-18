@@ -10,15 +10,15 @@ HttpRequestManager::HttpRequestManager(QObject *parent) : QObject(parent)
     m_nam =  new QNetworkAccessManager(this);
 }
 
-HttpDownload * HttpRequestManager::download(HttpRequest request,
+HttpDownload * HttpRequestManagerImpl::download(HttpRequest request,
                                    HttpRequestManager::OnFinished onResponse)
 {
-    return this->request(request, onResponse, 0);
+    return HttpRequestManager::request(request, onResponse, 0);
 }
 
-void HttpRequestManager::request(HttpRequest httpRequest, OnFinished onResponse)
+void HttpRequestManagerImpl::request(HttpRequest httpRequest, OnFinished onResponse)
 {
-    request(httpRequest, onResponse, 30);
+    HttpRequestManager::request(httpRequest, onResponse, 30);
 }
 
 HttpDownload *HttpRequestManager::request(HttpRequest httpRequest, OnFinished onResponse, int timeout)

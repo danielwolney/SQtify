@@ -1,12 +1,15 @@
 #include "searchresult.h"
 #include "spotifywebapiclient.h"
 #include "util/jsonparser.h"
+#include <QUrlQuery>
 
-SearchResult::SearchResult(QString term, QString type, int limit, SpotifyWebApiClient *apiClient, QObject *parent): QObject(parent),
+SearchResult::SearchResult(QString url, QString term, QString type, int limit, SpotifyWebApiClient *apiClient, QObject *parent): QObject(parent),
+    m_url(url),
     m_term(term),
     m_type(type),
     m_limit(limit),
-    m_apiClient(apiClient)
+    m_apiClient(apiClient),
+    m_itemCount(0)
 {
 }
 
@@ -23,12 +26,29 @@ void SearchResult::addResultPage(QJsonObject res)
 {
     m_resultPages.append(res);
     setTotal(res.value(plural(m_type)).toObject().value("total").toInt());
-    emit ready(res.value(plural(m_type)).toObject().value("items").toArray());
+    QJsonArray items = res.value(plural(m_type)).toObject().value("items").toArray();
+    m_itemCount += items.size();
+    emit ready(items);
 }
 
 QString SearchResult::plural(QString word)
 {
     return word + "s";
+}
+
+QString SearchResult::type() const
+{
+    return m_type;
+}
+
+int SearchResult::pageCount() const
+{
+    return m_resultPages.size();
+}
+
+int SearchResult::itemCount() const
+{
+    return m_itemCount;
 }
 
 int SearchResult::limit() const
@@ -63,21 +83,43 @@ bool SearchResult::hasNext()
     return false;
 }
 
+void SearchResult::getFirstPage()
+{
+    if (!m_loading) {
+        if (m_resultPages.size() >0) {
+            m_resultPages.clear();
+            m_itemCount = 0;
+            emit cleared();
+        }
+        QUrlQuery query(m_url);
+        query.addQueryItem("query", term());
+        query.addQueryItem("type", type());
+        query.addQueryItem("offset", "0");
+        query.addQueryItem("limit", QString::number(limit()));
+        getPage(query.toString(QUrl::EncodeSpaces));
+    }
+}
+
 void SearchResult::getNextPage()
 {
     if (hasNext() && !m_loading) {
-        m_loading = true;
-        emit loading();
-        qDebug() << next().toString();
-        m_apiClient->get(next().toString(), [&, this](const HttpResponse response) {
-            switch(response.httpStatusCode) {
-            case HttpRequestManager::OK:
-                QJsonObject res = JSONParser::toObject(response.data);
-                addResultPage(res);
-                m_loading = false;
-                emit loaded();
-                break;
-            }
-        });
+        getPage(next().toString());
     }
+}
+
+void SearchResult::getPage(QString url)
+{
+    m_loading = true;
+    emit loading();
+    qDebug() << "page" << (m_resultPages.size() + 1) << url;
+    m_apiClient->get(url, [&, this](const HttpResponse response) {
+        switch(response.httpStatusCode) {
+        case HttpRequestManager::OK:
+            QJsonObject res = JSONParser::toObject(response.data);
+            addResultPage(res);
+            m_loading = false;
+            emit loaded();
+            break;
+        }
+    });
 }

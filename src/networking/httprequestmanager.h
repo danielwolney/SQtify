@@ -57,9 +57,9 @@ public:
 
     typedef std::function<void (const HttpResponse response)> OnFinished;
 
-public slots:
-    void request(HttpRequest httpRequest, OnFinished onResponse);
-    HttpDownload *download(HttpRequest request, HttpRequestManager::OnFinished onResponse);
+public:
+    virtual void request(HttpRequest httpRequest, OnFinished onResponse) = 0;
+    virtual HttpDownload *download(HttpRequest request, HttpRequestManager::OnFinished onResponse) = 0;
 
 protected:
     QNetworkAccessManager *m_nam;
@@ -67,6 +67,12 @@ protected:
     HttpDownload *request(HttpRequest httpRequest, OnFinished onResponse, int timeout);
 
 private:
+};
+
+class HttpRequestManagerImpl : public HttpRequestManager
+{
+    virtual void request(HttpRequest httpRequest, OnFinished onResponse);
+    virtual HttpDownload *download(HttpRequest request, HttpRequestManager::OnFinished onResponse);
 };
 
 #endif // HTTPREQUESTMANAGER_H
