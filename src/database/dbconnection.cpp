@@ -14,7 +14,12 @@ QSqlDatabase DBConnection::database()
 void initDb()
 {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", CONNECTION_NAME);
-    QString fileName = "data.db3";
+    QString fileName =
+#ifdef TESTS
+            ":memory:";
+#else
+            "data.db3";
+#endif
     db.setDatabaseName(fileName);
     QFile dbFile(fileName);
     bool fileExists = dbFile.exists(fileName);
