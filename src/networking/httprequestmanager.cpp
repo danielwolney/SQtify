@@ -10,12 +10,6 @@ HttpRequestManager::HttpRequestManager(QObject *parent) : QObject(parent)
     m_nam =  new QNetworkAccessManager(this);
 }
 
-HttpDownload * HttpRequestManagerImpl::download(HttpRequest request,
-                                   HttpRequestManager::OnFinished onResponse)
-{
-    return HttpRequestManager::request(request, onResponse, 0);
-}
-
 void HttpRequestManagerImpl::request(HttpRequest httpRequest, OnFinished onResponse)
 {
     HttpRequestManager::request(httpRequest, onResponse, 30);
@@ -86,3 +80,12 @@ void registerMetaTypeOnFinished() {
     qMetaTypeId<HttpRequestManager::OnFinished>();
 }
 Q_COREAPP_STARTUP_FUNCTION(registerMetaTypeOnFinished)
+
+void registerAllMetaTypes()
+{
+    registerMetaTypeHttpResponse();
+    registerMetaTypeHttpRequest();
+    registerMetaTypeHttpVerb();
+    registerMetaTypeRawHeaders();
+    registerMetaTypeOnFinished();
+}

@@ -1,6 +1,6 @@
 include(gtest_dependency.pri)
 
-QT       += core testlib gui network networkauth sql multimedia svg
+QT += core testlib gui network networkauth sql multimedia svg
 
 TEMPLATE = app
 CONFIG += console c++11
@@ -13,9 +13,9 @@ include(src.pri)
 
 SOURCES += \
     tst/main.cpp \
-    tst/api/searchresult_tst.cpp
+    tst/api/searchresult_tst.cpp \
+    tst/api/spotifywebapiclient_tst.cpp
 
 HEADERS += \
-    tst/api/mockhttprequestmanager.h \
-    tst/api/mockspotifywebapiclient.h
-
+    tst/api/mockspotifywebapiclient.h \
+    tst/networking/mockhttprequestmanager.h

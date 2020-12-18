@@ -82,7 +82,7 @@ void SpotifyWebApiClient::dequeuePendingRequests()
     while (!m_pendingsRequests.isEmpty()) {
         auto pair = m_pendingsRequests.dequeue();
         metaObject()->invokeMethod(this, "request",
-                                   Qt::QueuedConnection,
+                                   Qt::DirectConnection,
                                    Q_ARG(HttpRequest, pair.first),
                                    Q_ARG(HttpRequestManager::OnFinished, pair.second));
     }

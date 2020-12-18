@@ -3,7 +3,6 @@
 
 #include "api/searchresult.h"
 #include "tst/api/mockspotifywebapiclient.h"
-#include "tst/networking/mockhttprequestmanager.h"
 
 using namespace testing;
 

@@ -59,7 +59,6 @@ public:
 
 public:
     virtual void request(HttpRequest httpRequest, OnFinished onResponse) = 0;
-    virtual HttpDownload *download(HttpRequest request, HttpRequestManager::OnFinished onResponse) = 0;
 
 protected:
     QNetworkAccessManager *m_nam;
@@ -72,7 +71,8 @@ private:
 class HttpRequestManagerImpl : public HttpRequestManager
 {
     virtual void request(HttpRequest httpRequest, OnFinished onResponse);
-    virtual HttpDownload *download(HttpRequest request, HttpRequestManager::OnFinished onResponse);
 };
+
+void registerAllMetaTypes();
 
 #endif // HTTPREQUESTMANAGER_H
