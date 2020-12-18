@@ -12,4 +12,10 @@ DEFINES += TESTS
 include(src.pri)
 
 SOURCES += \
-    tst/main.cpp
+    tst/main.cpp \
+    tst/api/searchresult_tst.cpp
+
+HEADERS += \
+    tst/api/mockhttprequestmanager.h \
+    tst/api/mockspotifywebapiclient.h
+

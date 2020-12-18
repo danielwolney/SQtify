@@ -27,3 +27,6 @@ INCLUDEPATH *= \
 SOURCES += \
     $$GTEST_SRCDIR/src/gtest-all.cc \
     $$GMOCK_SRCDIR/src/gmock-all.cc
+
+#OTHER_FILES += \
+#    $$GTEST_SRCDIR/samples/*
