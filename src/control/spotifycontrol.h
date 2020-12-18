@@ -6,12 +6,13 @@
 
 class SpotifyWebApiClient;
 class SearchResult;
+class HttpRequestManager;
 
 class SpotifyControl : public QObject
 {
     Q_OBJECT
 public:
-    explicit SpotifyControl(QObject *parent = nullptr);
+    explicit SpotifyControl(HttpRequestManager *httpManager, QObject *parent = nullptr);
     void setAccessToken(QString accessToken);
 
 public slots:

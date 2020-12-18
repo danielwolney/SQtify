@@ -2,11 +2,15 @@
 #include "networking/httprequestmanager.h"
 #include "util/jsonparser.h"
 
-SpotifyWebApiClient::SpotifyWebApiClient(QObject *parent) : QObject(parent),
-    m_httpManager(new HttpRequestManager())
+SpotifyWebApiClient::SpotifyWebApiClient(HttpRequestManager *httpManager, QObject *parent) : QObject(parent),
+    m_httpManager(httpManager)
 {
     connect(this, &SpotifyWebApiClient::accessTokenChanged,
             this, &SpotifyWebApiClient::dequeuePendingRequests);
+}
+
+SpotifyWebApiClientImpl::SpotifyWebApiClientImpl(HttpRequestManager *httpManager, QObject *parent): SpotifyWebApiClient(httpManager, parent)
+{
 }
 
 void SpotifyWebApiClientImpl::setAccesToken(QString accessToken)

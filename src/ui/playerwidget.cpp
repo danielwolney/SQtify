@@ -1,12 +1,15 @@
 #include "playerwidget.h"
 #include "ui_playerwidget.h"
 #include "media/mediaplayer.h"
+#include "networking/httprequestmanager.h"
+
 #include <QJsonObject>
 
 PlayerWidget::PlayerWidget(QWidget *parent) :
     QFrame(parent),
     ui(new Ui::PlayerWidget),
-    m_player(Q_NULLPTR)
+    m_player(Q_NULLPTR),
+    m_httpManager(Q_NULLPTR)
 {
     ui->setupUi(this);
     ui->sliderPosition->setPageStep(1);
@@ -43,7 +46,24 @@ void PlayerWidget::setPlayer(MediaPlayer *player)
     });
 
     connect(m_player, &MediaPlayer::currentTrackChanged, this, [&,this](const QJsonObject &track){
-        ui->lblImage->setPixmap(track.value("img_url").toString());
+        if (m_httpManager) {
+            HttpRequest req;
+            req.url = track.value("url_img").toString();
+            req.verb = HttpRequest::GET;
+            m_httpManager->request(req, [&, this](const HttpResponse response) {
+                switch(response.httpStatusCode) {
+                case HttpRequestManager::OK:
+                    QByteArray data = response.data;
+                    QPixmap coverImage;
+                    if (!data.isEmpty()) {
+                       coverImage.loadFromData(data, "JPEG");
+                    }
+                    ui->lblImage->setPixmap(coverImage);
+                    break;
+                }
+            });
+        }
+        ui->lblImage->setPixmap(QPixmap());
         ui->lblName->setText(track.value("name").toString());
         ui->lblArtist->setText(track.value("artists").toString());
     });
@@ -62,6 +82,11 @@ QString PlayerWidget::time(quint64 ms)
     return QString::number((int)(s / 60))
            + ":"
            +QString::number((int)(s % 60)).rightJustified(2,'0');
+}
+
+void PlayerWidget::setHttpRequestManager(HttpRequestManager *httpManager)
+{
+    m_httpManager = httpManager;
 }
 
 void PlayerWidget::on_btnSkip_clicked()

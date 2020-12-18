@@ -3,10 +3,12 @@
 #include "spotifycontrol.h"
 #include "model/localtracksmodel.h"
 #include "media/mediaplayer.h"
+#include "networking/httprequestmanager.h"
 
 AppControl::AppControl(QObject *parent) : QObject(parent),
     m_authService(new OAuth2Authorization(this)),
-    m_spotifyControl(new SpotifyControl()),
+    m_requestManager(new HttpRequestManager()),
+    m_spotifyControl(new SpotifyControl(m_requestManager, this)),
     m_player(new MediaPlayer(this))
 {
     connect(m_authService, &OAuth2Authorization::accessGranted,
@@ -57,6 +59,11 @@ void AppControl::startPlaylist(const QModelIndex &index)
 void AppControl::setAccessToken(QString accessToken)
 {
     m_spotifyControl->setAccessToken(accessToken);
+}
+
+HttpRequestManager *AppControl::requestManager() const
+{
+    return m_requestManager;
 }
 
 MediaPlayer *AppControl::player() const

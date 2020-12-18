@@ -9,6 +9,7 @@ class OAuth2Authorization;
 class SpotifyControl;
 class SearchResult;
 class MediaPlayer;
+class HttpRequestManager;
 
 class AppControl : public QObject
 {
@@ -19,6 +20,7 @@ public:
 public:
     bool hasAccess();
     MediaPlayer *player() const;
+    HttpRequestManager *requestManager() const;
 
 public slots:
     void grantAccess();
@@ -33,9 +35,9 @@ private:
     void setAccessToken(QString accessToken);
 
     OAuth2Authorization *m_authService;
+    HttpRequestManager *m_requestManager;
     SpotifyControl *m_spotifyControl;
     MediaPlayer* m_player;
-
 };
 
 #endif // APPCONTROL_H

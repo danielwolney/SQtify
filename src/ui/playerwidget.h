@@ -8,6 +8,8 @@ class PlayerWidget;
 }
 
 class MediaPlayer;
+class HttpRequestManager;
+
 class PlayerWidget : public QFrame
 {
     Q_OBJECT
@@ -17,6 +19,7 @@ public:
     ~PlayerWidget();
 
     void setPlayer(MediaPlayer *player);
+    void setHttpRequestManager(HttpRequestManager *httpManager);
 
 private slots:
     void on_btnSkip_clicked();
@@ -28,6 +31,7 @@ private:
     QString time(quint64 ms);
     Ui::PlayerWidget *ui;
     MediaPlayer *m_player;
+    HttpRequestManager *m_httpManager;
 };
 
 

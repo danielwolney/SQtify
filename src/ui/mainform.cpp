@@ -40,6 +40,7 @@ MainForm::MainForm(AppControl *appControl, QWidget *parent) :
     ui->tabWidget->setTabsClosable(true);
 
     ui->playerWidget->setPlayer(m_control->player());
+    ui->playerWidget->setHttpRequestManager(m_control->requestManager());
 }
 
 MainForm::~MainForm()

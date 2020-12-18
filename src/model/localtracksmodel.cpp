@@ -29,7 +29,6 @@ QVariant LocalTracksModel::data(const QModelIndex &index, int role) const
                 {"album_name", record(index.row()).value(columnAlbumIndex()).toString()},
                 {"artists", record(index.row()).value(columnArtitsIndex()).toString()},
                 {"url_img", record(index.row()).value(columnImageIndex()).toString()}
-
             };
         }
     }

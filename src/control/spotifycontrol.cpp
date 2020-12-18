@@ -6,8 +6,8 @@
 #include "api/searchresult.h"
 #include <QUrlQuery>
 
-SpotifyControl::SpotifyControl(QObject *parent) : QObject(parent),
-    m_apiClient(new SpotifyWebApiClientImpl())
+SpotifyControl::SpotifyControl(HttpRequestManager *httpManager, QObject *parent) : QObject(parent),
+    m_apiClient(new SpotifyWebApiClientImpl(httpManager))
 {
     connect(m_apiClient, &SpotifyWebApiClient::expiredToken, this, &SpotifyControl::needRefreshAccessToken);
     connect(m_apiClient, &SpotifyWebApiClient::accessTokenChanged,
