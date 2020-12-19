@@ -1,7 +1,7 @@
 isEmpty(GOOGLETEST_DIR):GOOGLETEST_DIR=$$(GOOGLETEST_DIR)
 
 isEmpty(GOOGLETEST_DIR) {
-    GOOGLETEST_DIR = "tst/googletest"
+    GOOGLETEST_DIR = "3dparty/googletest"
     warning("Using googletest src default dir")
     message("set GOOGLETEST_DIR as environment variable or qmake variable to get rid of this message")
 }
