@@ -24,10 +24,17 @@ QVariant TrackSearchResultModel::data(const QModelIndex &index, int role) const
     if (index.row() <= m_count) {
         int page = (int)(index.row() / (double)pageSize());
         int itemIndex = (int)(index.row() % pageSize());
-        if (role == Qt::DisplayRole) {
-            return QString::number(index.row()+1) + " - " +m_itens.value(page).at(itemIndex).toObject().value("name").toString();
-        } else if (role == Item) {
-            return m_itens.value(page).at(itemIndex).toObject();
+        QJsonObject item = m_itens.value(page).at(itemIndex).toObject();
+        switch (role) {
+        case Qt::DisplayRole:
+            return QString::number(index.row()+1) + " - " + item.value("name").toString();
+        case Item:
+            return item;
+        case Qt::ToolTipRole:
+            return QString("Album: %1\nLançamento: %2\nArtista: %3")
+                    .arg(item.value("album").toObject().value("name").toString())
+                    .arg(item.value("album").toObject().value("release_date").toString())
+                    .arg(item.value("artists").toArray()[0].toObject().value("name").toString());
         }
     }
     return QVariant();
@@ -51,7 +58,7 @@ void TrackSearchResultModel::fetchMore(const QModelIndex &parent)
     }
 }
 
-void TrackSearchResultModel::appendItems(QJsonArray items)
+void TrackSearchResultModel::appendItems(const QJsonArray & items)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount() + items.size() - 1);
     m_itens.append(items);

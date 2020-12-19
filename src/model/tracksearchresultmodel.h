@@ -31,7 +31,7 @@ signals:
 private:
     void setSearchResult(SearchResult *searchResult);
     void clear();
-    void appendItems(QJsonArray items);
+    void appendItems(const QJsonArray &items);
 
     SearchResult *m_searchResult;
     QList<QJsonArray> m_itens;
