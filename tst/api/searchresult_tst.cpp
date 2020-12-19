@@ -27,10 +27,10 @@ class SearchResultTests : public testing::Test {
   MockSpotifyWebApiClient m_mockApiClient;
   void defaultApiGet() {
       ON_CALL(m_mockApiClient, get)
-              .WillByDefault([this](QString apiResource, HttpRequestManager::OnFinished onResponse) {
+              .WillByDefault([this](QString url, HttpRequestManager::OnFinished onResponse) {
           HttpResponse response;
           response.httpStatusCode = HttpRequestManager::OK;
-          response.data = fakeData.value(apiResource, noResults);
+          response.data = fakeData.value(url, noResults);
           onResponse(response);
         });
   }
@@ -144,9 +144,7 @@ TEST_F(SearchResultTests, ResetSearch)
     EXPECT_EQ(search.itemCount(), 0);
 
     search.getFirstPage();
-
     int firstItemCont = search.itemCount();
-
     EXPECT_EQ(search.pageCount(), 1);
 
     EXPECT_TRUE(search.hasNext());
