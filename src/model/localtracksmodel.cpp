@@ -111,3 +111,8 @@ bool LocalTracksModel::addPlaylistTrack(int playlistID, QJsonObject trackItem)
     return false;
 }
 
+bool LocalTracksModel::removeAll()
+{
+    return removeRows(0,rowCount());
+}
+

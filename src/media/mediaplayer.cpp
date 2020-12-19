@@ -17,7 +17,7 @@ MediaPlayer::MediaPlayer(QObject *parent) : QObject(parent),
         setCurrentTrack(m_tracks[media.request().url()]);
     });
 
-    m_player->setVolume(1);
+    m_player->setVolume(50);
 }
 
 QJsonObject MediaPlayer::currentTrack() const

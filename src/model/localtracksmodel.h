@@ -30,6 +30,7 @@ public:
 public slots:
     void setCurrentPlaylistID(int playlistID);
     bool addPlaylistTrack(int playlistID, QJsonObject trackItem);
+    bool removeAll();
 };
 
 

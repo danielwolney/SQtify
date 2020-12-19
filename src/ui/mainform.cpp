@@ -126,8 +126,11 @@ void MainForm::removePlaylist()
     QModelIndex index = ui->playlistList->focusIndex();
     if (QMessageBox::question(this, "Remover playlist",
                               QString("Remover playlist '%1'?").arg(m_playlistModel->name(index.row()))) == QMessageBox::Yes) {
+        int id = m_playlistModel->id(index.row());
         if (m_playlistModel->removeRow(index.row())) {
             m_playlistModel->select();
+            m_tracksModel->setCurrentPlaylistID(id);
+            m_tracksModel->removeAll();
         }
     }
 }
